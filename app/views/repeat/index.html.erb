@@ -1,0 +1,88 @@
+<h1>Listing Repeat Textbox</h1>
+
+<% 
+  def create_row( number )
+  	row = %q(
+	)
+  end
+%>
+
+
+<% @numbers = ['1','2','3','4','5'] %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Textbox Number</th>
+      <th colspan='2'>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+  	<% @numbers.each do |number| %>
+  	  <tr>
+	  	<td><%= number %></td>
+	  	<td>
+	  	  <% id = number %>
+	  	  <% show_id = 'show-form-' + id %>
+	  	  <% input_id = 'input-form-' + id %>
+	  	  <% submit_id = 'submit-form-' +  id %>
+	  	  <% cancel_id = 'cancel-form-' +  id %>
+	  	  <div>
+	  	  	<button id=<%= show_id %>>Click</button>
+	  	  </div>
+
+	      <div id=<%= input_id %> class='input'>
+
+		  <p>
+		  	<textarea></textarea>
+		  </p>	
+		  	
+		  <button id=<%= submit_id %> >Submit</button>
+		  <button id=<%= cancel_id %> >Cancel</button>
+
+		  </div>	
+	  	</td>
+	  </tr>
+  	<% end %>
+  	
+  </tbody>
+
+</table>
+
+<%= link_to 'New Textbox', new_repeat_path %>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		$(".input").hide();
+	});
+
+	var junction = '-form-'
+
+  	$('button').click(function(event) {
+  		var selector = event.target.id.split('-')
+  		var id = selector [2]
+  		var method = selector [0]
+
+  		switch(method) {
+  			case 'show' : show_form("#input" + junction + id)
+  							break
+  			case 'cancel' : hide_form("#input" + junction + id)
+  							break
+  			case 'submit' : alert('submit' + id)
+  							break
+  		}
+  		
+  	});
+
+  	function show_form(id) {
+  		$(id).slideDown();
+  	}
+
+  	function hide_form(id) {
+  		$(id).slideUp();
+  	}
+
+  </script>
